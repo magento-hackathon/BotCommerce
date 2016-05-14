@@ -3,5 +3,13 @@
     "description": "A small, generic PHP solution to convert natural language commands to actions in the Magento API",
     "type": "magento2-module",
     "license": "OSL-3.0",
-    "require": { }
+    "require": { },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Hackathon\\BotCommerce\\": ""
+        }
+    }
 }

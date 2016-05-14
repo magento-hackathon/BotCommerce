@@ -1,15 +1,19 @@
 {
-    "name": "magento-hackathon/botcommerce",
-    "description": "A small, generic PHP solution to convert natural language commands to actions in the Magento API",
-    "type": "magento2-module",
-    "license": "OSL-3.0",
-    "require": { },
-    "autoload": {
-        "files": [
-            "registration.php"
-        ],
-        "psr-4": {
-            "Hackathon\\BotCommerce\\": ""
-        }
+  "name": "magento-hackathon/botcommerce",
+  "description": "A small, generic PHP solution to convert natural language commands to actions in the Magento API",
+  "type": "magento2-module",
+  "license": "OSL-3.0",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "coderstephen/slack-client": "^0.2.3"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Hackathon\\BotCommerce\\": ""
     }
+  }
 }

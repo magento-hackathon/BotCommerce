@@ -20,6 +20,18 @@ class Wrapper
         $this->body = $body;
     }
 
+    public static function getLanguage($iso2)
+    {
+        switch ($iso2) {
+            case 'nl': return 'dutch'; break;
+            case 'pt': return 'portuguese'; break;
+            case 'fr': return 'french'; break;
+            case 'es': return 'spanish'; break;
+            case 'en':
+            default: return 'english'; break;
+        }
+    }
+
     protected function _call($api, $postFields)
     {
         $apiUrl = sprintf(self::APIURL, $api);

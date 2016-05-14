@@ -2,6 +2,8 @@
 
 namespace Hackathon\BotCommerce\Service;
 
+use Hackathon\BotCommerce;
+
 class CommandrouterService
 {
 

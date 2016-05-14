@@ -1,6 +1,6 @@
 <?php
 
-namespace TextProcessing;
+namespace Hackathon\BotCommerce;
 
 class Wrapper
 {

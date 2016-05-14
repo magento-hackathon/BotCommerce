@@ -67,7 +67,8 @@ class CommandrouterService
             $i++;
         }
 
-
+        $content = $this->matchCommand($textTypes['N']);
+        return implode("\n", $content);
     }
 
     public function getAllCommands()

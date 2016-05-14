@@ -4,7 +4,7 @@ namespace Hackathon\BotCommerce\Model\Commands;
 
 use Hackathon\BotCommerce\Service\MessageService;
 
-class Orderstatus extends AbstractCommand
+class Productstock extends AbstractCommand
 {
     /**
      * @var MessageService
@@ -22,20 +22,15 @@ class Orderstatus extends AbstractCommand
      * @var array
      */
     protected $_triggerwords = [
-        ['order','package'],
-        ['status','ship']
+        ['product'],
+        ['stock']
     ];
 
     public function executeCommand($body, $words)
     {
-        preg_match('/([0-9]{10,10})/', $body, $incrementMatch);
+        $sku = '001';
+        $stock = $this->messageService->getProductStockStatus($ku);
 
-        $status = $this->messageService->getOrderStatus($incrementMatch[0]);
-
-        if (!is_null($status)) {
-            return new \Magento\Framework\Phrase('You order status is %1', [$status]);
-        } else {
-            return new \Magento\Framework\Phrase('Could not find your order', []);
-        }
+        return new \Magento\Framework\Phrase('The stock for %1 is %2', [$sku, $stock]);
     }
 }

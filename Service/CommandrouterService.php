@@ -75,7 +75,7 @@ class CommandrouterService
         $content = [];
 
         foreach ($executeList as $instance) {
-            $content[] = $instance->executeCommand();
+            $content[] = $instance->executeCommand($message, $textTypes);
         }
 
         return implode("\n", $content);
@@ -91,8 +91,8 @@ class CommandrouterService
                 'class' => Orderstatus::class,
                 'priority' => 1
             ],
-            'contact' => [
-                'class' => '\\Hackathon\\Botcommerce\\Model\\Commands\\Contact',
+            'productstock' => [
+                'class' => '\\Hackathon\\Botcommerce\\Model\\Commands\\Productstock',
                 'priority' => 3
             ]
         ];

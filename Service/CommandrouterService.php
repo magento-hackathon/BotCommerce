@@ -2,25 +2,28 @@
 
 namespace Hackathon\BotCommerce\Service;
 
-use Hackathon\BotCommerce;
+use Hackathon\BotCommerce\Model\Commands\Orderstatus;
+use Hackathon\BotCommerce\Wrapper;
 
 class CommandrouterService
 {
 
     protected $scopeConfig;
     protected $objectManager;
+    private $orderStatus;
 
 
     public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Framework\ObjectManager $objectManager
+        Orderstatus $orderStatus,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     ) {
+        $this->orderStatus = $orderStatus;
         $this->scopeConfig = $scopeConfig;
-        $this->objectManager= $objectManager;
     }
 
     /**
      * @param string $message
+     * @return string
      */
     public function processMessage($message)
     {
@@ -33,6 +36,7 @@ class CommandrouterService
         $textProcessing = new Wrapper($message, $language);
 
         $ner = $textProcessing->getNER();
+
         $filterNERlist = [];
         foreach ($ner as $type) {
             $filterNERlist = array_merge(array_values($type), $filterNERlist);
@@ -48,10 +52,10 @@ class CommandrouterService
             $type = $matches[2][$i];
             $value = $matches[1][$i];
 
-            if (in_array($value, $filterNERlist)) {
-                $i++;
-                continue;
-            }
+//            if (in_array($value, $filterNERlist)) { // @todo NER gave false positives
+//                $i++;
+//                continue;
+//            }
 
             if (!isset($textTypes[$type])) {
                 $textTypes[$type] = [];
@@ -67,12 +71,13 @@ class CommandrouterService
             $i++;
         }
 
-        $executeList = $this->matchCommand($textTypes['N']);
+        $executeList = $this->matchCommand($textTypes['NN']); // @todo check what types should be given here, for now just nouns
         $content = [];
 
         foreach ($executeList as $instance) {
             $content[] = $instance->executeCommand();
         }
+
         return implode("\n", $content);
     }
 
@@ -83,7 +88,7 @@ class CommandrouterService
          */
         return [
             'orderstatus' => [
-                'class' => '\\Hackathon\\Botcommerce\\Model\\Commands\\Orderstatus',
+                'class' => Orderstatus::class,
                 'priority' => 1
             ],
             'contact' => [

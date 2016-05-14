@@ -28,7 +28,7 @@ class Orderstatus extends AbstractCommand
 
     public function executeCommand($body, $words)
     {
-        preg_match('/([0-9]{10,10})/', $body, $incrementMatch);
+        preg_match('/([0-9]{9})/', $body, $incrementMatch);
 
         $status = $this->messageService->getOrderStatus($incrementMatch[0]);
 

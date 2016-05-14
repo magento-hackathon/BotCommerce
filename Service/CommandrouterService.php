@@ -3,21 +3,33 @@
 namespace Hackathon\BotCommerce\Service;
 
 use Hackathon\BotCommerce\Model\Commands\Orderstatus;
+use Hackathon\BotCommerce\Model\Commands\Productstock;
 use Hackathon\BotCommerce\Wrapper;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\ObjectManagerInterface;
+use Magento\Store\Model\ScopeInterface;
 
 class CommandrouterService
 {
-
+    /**
+     * @var ScopeConfigInterface
+     */
     protected $scopeConfig;
+
+    /**
+     * @var ObjectManagerInterface
+     */
     protected $objectManager;
-    private $orderStatus;
 
-
+    /**
+     * @param ObjectManagerInterface $objectManager
+     * @param ScopeConfigInterface $scopeConfig
+     */
     public function __construct(
-        Orderstatus $orderStatus,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+        ObjectManagerInterface $objectManager,
+        ScopeConfigInterface $scopeConfig
     ) {
-        $this->orderStatus = $orderStatus;
+        $this->objectManager = $objectManager;
         $this->scopeConfig = $scopeConfig;
     }
 
@@ -29,7 +41,7 @@ class CommandrouterService
     {
         $languageIso2 = substr($this->scopeConfig->getValue(
             'general/locale/code',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            ScopeInterface::SCOPE_STORE
         ), 0, 2);
         $language = Wrapper::getLanguage($languageIso2);
 
@@ -92,7 +104,7 @@ class CommandrouterService
                 'priority' => 1
             ],
             'productstock' => [
-                'class' => '\\Hackathon\\Botcommerce\\Model\\Commands\\Productstock',
+                'class' => Productstock::class,
                 'priority' => 3
             ]
         ];
@@ -105,7 +117,7 @@ class CommandrouterService
 
         foreach ($commands as $command) {
             $instance = $this->objectManager->create($command['class']);
-            if ($instance->matchKeywords($keywords)) { // check if the given keywords match the trigger wordts for the command
+            if ($instance->matchKeywords($keywords)) { // check if the given keywords match the trigger words for the command
                 $executeList[] = $instance;
             }
         }

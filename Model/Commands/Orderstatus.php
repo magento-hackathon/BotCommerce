@@ -13,4 +13,12 @@ class Orderstatus extends AbstractCommand
         ['order','package'],
         ['status','ship']
     ];
+
+    public function executeCommand()
+    {
+        $orderInstance = $this->objectManager->get('Magento\Sales\Model\Order');
+        $orderObject = $orderInstance->load(1);
+
+        return new \Magento\Phrase('You order status is %1', [$orderObject->getStatus]);
+    }
 }

@@ -6,11 +6,15 @@ class CommandrouterService
 {
 
     protected $scopeConfig;
+    protected $objectManager;
+
 
     public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\ObjectManager $objectManager
     ) {
         $this->scopeConfig = $scopeConfig;
+        $this->objectManager= $objectManager;
     }
 
     /**
@@ -60,5 +64,39 @@ class CommandrouterService
             $textTypes[$type][] = $value;
             $i++;
         }
+
+
+    }
+
+    public function getAllCommands()
+    {
+        /*
+         * @todo make this dynamic with the array defined in a XML node that allows for easily adding more commands
+         */
+        return [
+            'orderstatus' => [
+                'class' => '\\Hackathon\\Botcommerce\\Model\\Commands\\Orderstatus',
+                'priority' => 1
+            ],
+            'contact' => [
+                'class' => '\\Hackathon\\Botcommerce\\Model\\Commands\\Contact',
+                'priority' => 3
+            ]
+        ];
+    }
+
+    public function matchCommand($keywords)
+    {
+        $commands = $this->getAllCommands();
+        $content = [];
+
+        foreach ($commands as $command) {
+            $instance = $this->objectManager->create($command['class']);
+            if ($instance->matchKeywords($keywords)) { // check if the given keywords match the trigger wordts for the command
+                $content[] = $instance->executeCommand();
+            }
+        }
+
+        return $content;
     }
 }

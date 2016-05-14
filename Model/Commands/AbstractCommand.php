@@ -2,19 +2,9 @@
 
 namespace Hackathon\BotCommerce\Model\Commands;
 
-class AbstractCommand extends \Magento\Framework\Model\AbstractModel
+class AbstractCommand
 {
-    protected $scopeConfig;
-    protected $objectManager;
-
-
-    public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Framework\ObjectManager $objectManager
-    ) {
-        $this->scopeConfig = $scopeConfig;
-        $this->objectManager= $objectManager;
-    }
+    protected $_triggerwords = [];
 
     public function matchKeywords($keywords)
     {

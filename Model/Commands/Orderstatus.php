@@ -2,8 +2,20 @@
 
 namespace Hackathon\BotCommerce\Model\Commands;
 
+use Hackathon\BotCommerce\Service\MessageService;
+
 class Orderstatus extends AbstractCommand
 {
+    /**
+     * @var MessageService
+     */
+    private $messageService;
+    
+    public function __construct(MessageService $messageService)
+    {
+        $this->messageService = $messageService;
+    }
+
     /**
      * Get's triggered if one of the words of each line is present
      *
@@ -16,9 +28,8 @@ class Orderstatus extends AbstractCommand
 
     public function executeCommand()
     {
-        $orderInstance = $this->objectManager->get('Magento\Sales\Model\Order');
-        $orderObject = $orderInstance->load(1);
+        $status = $this->messageService->getOrderStatus('000000001');
 
-        return new \Magento\Phrase('You order status is %1', [$orderObject->getStatus]);
+        return new \Magento\Framework\Phrase('You order status is %1', [$status]);
     }
 }

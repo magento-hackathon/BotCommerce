@@ -67,7 +67,12 @@ class CommandrouterService
             $i++;
         }
 
-        $content = $this->matchCommand($textTypes['N']);
+        $executeList = $this->matchCommand($textTypes['N']);
+        $content = [];
+
+        foreach ($executeList as $instance) {
+            $content[] = $instance->executeCommand();
+        }
         return implode("\n", $content);
     }
 
@@ -91,15 +96,15 @@ class CommandrouterService
     public function matchCommand($keywords)
     {
         $commands = $this->getAllCommands();
-        $content = [];
+        $executeList = [];
 
         foreach ($commands as $command) {
             $instance = $this->objectManager->create($command['class']);
             if ($instance->matchKeywords($keywords)) { // check if the given keywords match the trigger wordts for the command
-                $content[] = $instance->executeCommand();
+                $executeList[] = $instance;
             }
         }
 
-        return $content;
+        return $executeList;
     }
 }

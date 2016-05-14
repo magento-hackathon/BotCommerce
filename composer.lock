@@ -1,0 +1,67 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "a036ede9ce9d5322a255d2b1d580ba21",
+    "content-hash": "acd393211adb34ac4e8308d074e4b648",
+    "packages": [
+        {
+            "name": "agentile/php-stanford-nlp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/agentile/PHP-Stanford-NLP.git",
+                "reference": "51f99f1aaa1c3d5822fe634346b2b4b33a7a6223"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/agentile/PHP-Stanford-NLP/zipball/51f99f1aaa1c3d5822fe634346b2b4b33a7a6223",
+                "reference": "51f99f1aaa1c3d5822fe634346b2b4b33a7a6223",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "StanfordNLP": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthony Gentile",
+                    "email": "asgentile@gmail.com",
+                    "homepage": "http://agentile.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP interface to Stanford NLP Tools",
+            "homepage": "https://github.com/agentile/PHP-Stanford-NLP",
+            "keywords": [
+                "ner",
+                "nlp",
+                "parser",
+                "pos",
+                "stanford"
+            ],
+            "time": "2014-10-18 15:24:25"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "agentile/php-stanford-nlp": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

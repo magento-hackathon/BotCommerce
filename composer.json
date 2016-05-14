@@ -3,5 +3,7 @@
     "description": "A small, generic PHP solution to convert natural language commands to actions in the Magento API",
     "type": "magento2-module",
     "license": "OSL-3.0",
-    "require": {}
+    "require": {
+        "agentile/php-stanford-nlp": "dev-master"
+    }
 }

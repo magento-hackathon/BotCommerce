@@ -33,7 +33,7 @@ class Orderstatus extends AbstractCommand
         $status = $this->messageService->getOrderStatus($incrementMatch[0]);
 
         if (!is_null($status)) {
-            return new \Magento\Framework\Phrase('You order status is %1', [$status]);
+            return new \Magento\Framework\Phrase('Your order status is %1', [$status]);
         } else {
             return new \Magento\Framework\Phrase('Could not find your order', []);
         }

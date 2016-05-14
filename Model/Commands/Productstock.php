@@ -28,9 +28,15 @@ class Productstock extends AbstractCommand
 
     public function executeCommand($body, $words)
     {
-        $sku = '001';
-        $stock = $this->messageService->getProductStockStatus($ku);
+        preg_match('/\[(.*?)\]/', $body, $matches);
+        $sku = $matches[1];
 
-        return new \Magento\Framework\Phrase('The stock for %1 is %2', [$sku, $stock]);
+        if (isset($matches[1])) {
+            $stock = $this->messageService->getProductStockStatus($sku);
+
+            return new \Magento\Framework\Phrase('The product %1 is %2', [$sku, $stock]);
+        }
+
+        return new \Magento\Framework\Phrase('Please provide a product sku in your message (eg. [abc123def456])', []);
     }
 }
